@@ -13,6 +13,7 @@ import {
 import { Slider } from "./components/ui/slider";
 import { Switch } from "./components/ui/switch";
 import { Label } from "./components/ui/label";
+import gm from "../public/gm.svg";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
@@ -64,11 +65,18 @@ function App() {
         <div className="w-screen h-full p-4 lg:p-12">
           <div className="w-full h-full flex flex-col justify-between items-center">
             <div className="flex flex-col items-center gap-y-2">
-              <h1 className="bg-ben text-transparent bg-clip-text font-extrabold text-center p-2 xl:p-4 text-5xl tracking-[-0.4rem] leading-9 sm:text-7xl sm:tracking-[-0.55rem] sm:leading-[3.5rem] md:text-9xl md:tracking-[-0.95rem] md:leading-[6.5rem] xl:text-[12rem] xl:tracking-[-1.5rem] xl:leading-[9.5rem] 2xl:text-[17rem] 2xl:tracking-[-2rem] 2xl:leading-[13.5rem]">
-                Password
-                <br />
-                Generator
-              </h1>
+              <div className="flex items-end">
+                <h1 className="bg-ben text-transparent bg-clip-text font-extrabold text-center p-2 xl:p-4 text-5xl tracking-[-0.4rem] leading-9 sm:text-7xl sm:tracking-[-0.55rem] sm:leading-[3.5rem] md:text-9xl md:tracking-[-0.95rem] md:leading-[6.5rem] xl:text-[12rem] xl:tracking-[-1.5rem] xl:leading-[9.5rem] 2xl:text-[17rem] 2xl:tracking-[-2rem] 2xl:leading-[13.5rem]">
+                  Password
+                  <br />
+                  Generator
+                </h1>
+                <img
+                  src={gm}
+                  alt="logomarca"
+                  className="w-4 sm:w-6 md:w-8 xl:w-12 m-2 xl:m-4"
+                />
+              </div>
               <div className="flex flex-wrap sm:flex-nowrap w-[calc(100%-2rem)] sm:w-full items-center space-y-2 sm:space-x-2 sm:space-y-0">
                 <Input
                   className="pointer-events-none border-2 border-slate-700 border-opacity-15"
@@ -87,9 +95,9 @@ function App() {
               </div>
             </div>
             <div className="w-full flex flex-col gap-y-3">
-              <p className="text-muted-foreground text-center">
+              {/* <p className="text-center">
                 ensure the best security
-              </p>
+              </p> */}
               <div className="flex flex-wrap gap-y-4 justify-center sm:justify-between">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
