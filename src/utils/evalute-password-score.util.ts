@@ -13,13 +13,18 @@ export function evaluatePasswordStrength(password: string) {
   if (/[^A-Za-z0-9]/.test(password)) score += 1;
 
   switch (score) {
+    default:
+      return "Short";
     case 0:
+      return "Short";
     case 1:
+      return "Weak";
     case 2:
       return "Weak";
     case 3:
       return "Medium";
     case 4:
+      return "Medium";
     case 5:
       return "Strong";
   }
