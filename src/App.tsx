@@ -13,7 +13,7 @@ import {
 import { Slider } from "./components/ui/slider";
 import { Switch } from "./components/ui/switch";
 import { Label } from "./components/ui/label";
-import gm from "../public/gm.svg";
+import gm from "/gm.svg";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
