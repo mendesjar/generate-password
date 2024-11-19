@@ -11,6 +11,8 @@ import {
   TooltipTrigger,
 } from "./components/ui/tooltip";
 import { Slider } from "./components/ui/slider";
+import { Switch } from "./components/ui/switch";
+import { Label } from "./components/ui/label";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
@@ -20,11 +22,40 @@ function App() {
   );
   const [passwordLength, setPasswordLength] = useState(DEFAULT_INITIAL_VALUE);
   const [score, setScore] = useState<string>("");
+  const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
+  const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
 
   useEffect(() => {
     const score = evaluatePasswordStrength(password);
     setScore(score);
   }, [password]);
+
+  function passwordCaracter(
+    length = passwordLength,
+    numbers = includeNumbers,
+    symbols = includeSymbols
+  ) {
+    let password = faker.string.sample(length);
+    if (!symbols) {
+      password = faker.string.alphanumeric(length);
+    }
+    if (!numbers) {
+      password = faker.string.sample(100).replace(/\d+/g, "").slice(0, length);
+    }
+    if (!numbers && !symbols) {
+      password = faker.string.alpha(length);
+    }
+    return password;
+  }
+
+  function changePasswordCaracter(
+    length = passwordLength,
+    numbers = includeNumbers,
+    symbols = includeSymbols
+  ) {
+    const string = passwordCaracter(length, numbers, symbols);
+    setPassword(string);
+  }
 
   return (
     <>
@@ -44,7 +75,9 @@ function App() {
                   type="text"
                   value={password}
                 />
-                <div className={`w-full h-1 sm:w-1 sm:h-full ${score} rounded-full`} />
+                <div
+                  className={`w-full h-1 sm:w-1 sm:h-full ${score} rounded-full`}
+                />
                 <Button
                   className="w-full sm:w-auto"
                   onClick={() => navigator.clipboard.writeText(password)}
@@ -57,7 +90,31 @@ function App() {
               <p className="text-muted-foreground text-center">
                 ensure the best security
               </p>
-              <div className="flex justify-center sm:justify-between">
+              <div className="flex flex-wrap gap-y-4 justify-center sm:justify-between">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="include-numbers"
+                      checked={includeNumbers}
+                      onCheckedChange={(checked) => {
+                        setIncludeNumbers(checked);
+                        changePasswordCaracter(passwordLength, checked);
+                      }}
+                    />
+                    <Label htmlFor="include-numbers">Numbers</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="include-symbols"
+                      checked={includeSymbols}
+                      onCheckedChange={(checked) => {
+                        setIncludeSymbols(checked);
+                        changePasswordCaracter(passwordLength, checked);
+                      }}
+                    />
+                    <Label htmlFor="include-symbols">Symbols</Label>
+                  </div>
+                </div>
                 <div className="flex items-center justify-center space-x-2">
                   <Button
                     variant="outline"
@@ -66,7 +123,7 @@ function App() {
                     onClick={() => {
                       const newLength = passwordLength - 1;
                       setPasswordLength(newLength);
-                      setPassword(faker.string.alphanumeric(newLength));
+                      changePasswordCaracter(newLength);
                     }}
                     disabled={passwordLength <= DEFAULT_INITIAL_VALUE}
                   >
@@ -86,9 +143,7 @@ function App() {
                               onValueChange={(value) => {
                                 const newLength = value[0];
                                 setPasswordLength(newLength);
-                                setPassword(
-                                  faker.string.alphanumeric(newLength)
-                                );
+                                changePasswordCaracter(newLength);
                               }}
                               className="w-24 my-2"
                               step={1}
@@ -108,7 +163,7 @@ function App() {
                     onClick={() => {
                       const newLength = passwordLength + 1;
                       setPasswordLength(newLength);
-                      setPassword(faker.string.alphanumeric(newLength));
+                      changePasswordCaracter(newLength);
                     }}
                     disabled={passwordLength >= 50}
                   >
