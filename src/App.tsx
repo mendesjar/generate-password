@@ -32,21 +32,24 @@ function App() {
       <div className="relative z-20 w-full h-dvh">
         <div className="w-screen h-full p-4 lg:p-12">
           <div className="w-full h-full flex flex-col justify-between items-center">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center gap-y-2">
               <h1 className="bg-ben text-transparent bg-clip-text font-extrabold text-center p-2 xl:p-4 text-5xl tracking-[-0.4rem] leading-9 sm:text-7xl sm:tracking-[-0.55rem] sm:leading-[3.5rem] md:text-9xl md:tracking-[-0.95rem] md:leading-[6.5rem] xl:text-[12rem] xl:tracking-[-1.5rem] xl:leading-[9.5rem] 2xl:text-[17rem] 2xl:tracking-[-2rem] 2xl:leading-[13.5rem]">
                 Password
                 <br />
                 Generator
               </h1>
-              <div className="flex w-full max-w-sm items-center space-x-2">
+              <div className="flex flex-wrap sm:flex-nowrap w-[calc(100%-2rem)] sm:w-full items-center space-y-2 sm:space-x-2 sm:space-y-0">
                 <Input
-                  className="pointer-events-none"
+                  className="pointer-events-none border-2 border-slate-700 border-opacity-15"
                   type="text"
                   value={password}
                 />
-                <Button onClick={() => navigator.clipboard.writeText(password)}>
-                  <Copy />
-                  {score}
+                <div className={`w-full h-1 sm:w-1 sm:h-full ${score} rounded-full`} />
+                <Button
+                  className="w-full sm:w-auto"
+                  onClick={() => navigator.clipboard.writeText(password)}
+                >
+                  <Copy className="stroke-[3]" />
                 </Button>
               </div>
             </div>
@@ -54,7 +57,7 @@ function App() {
               <p className="text-muted-foreground text-center">
                 ensure the best security
               </p>
-              <div className="flex justify-between">
+              <div className="flex justify-center sm:justify-between">
                 <div className="flex items-center justify-center space-x-2">
                   <Button
                     variant="outline"
