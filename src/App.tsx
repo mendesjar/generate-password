@@ -4,6 +4,13 @@ import { Button } from "./components/ui/button";
 import { faker } from "@faker-js/faker";
 import { Input } from "./components/ui/input";
 import { evaluatePasswordStrength } from "./utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./components/ui/tooltip";
+import { Slider } from "./components/ui/slider";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
@@ -65,7 +72,27 @@ function App() {
                   </Button>
                   <div className="flex-1 text-center">
                     <div className="text-7xl font-bold tracking-tighter">
-                      {passwordLength}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>{passwordLength}</TooltipTrigger>
+                          <TooltipContent className="bg-slate-700 bg-opacity-10 ">
+                            <Slider
+                              defaultValue={[passwordLength]}
+                              min={5}
+                              max={50}
+                              onValueChange={(value) => {
+                                const newLength = value[0];
+                                setPasswordLength(newLength);
+                                setPassword(
+                                  faker.string.alphanumeric(newLength)
+                                );
+                              }}
+                              className="w-24 my-2"
+                              step={1}
+                            />
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     <div className="text-[0.70rem] uppercase text-muted-foreground">
                       Password length:
