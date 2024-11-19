@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Copy, Minus, Plus } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { faker } from "@faker-js/faker";
 import { Input } from "./components/ui/input";
+import { evaluatePasswordStrength } from "./utils";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
@@ -11,6 +12,12 @@ function App() {
     faker.string.alphanumeric(DEFAULT_INITIAL_VALUE)
   );
   const [passwordLength, setPasswordLength] = useState(DEFAULT_INITIAL_VALUE);
+  const [score, setScore] = useState<string>("");
+
+  useEffect(() => {
+    const score = evaluatePasswordStrength(password);
+    setScore(score);
+  }, [password]);
 
   return (
     <>
@@ -32,6 +39,7 @@ function App() {
                 />
                 <Button onClick={() => navigator.clipboard.writeText(password)}>
                   <Copy />
+                  {score}
                 </Button>
               </div>
             </div>
@@ -39,7 +47,7 @@ function App() {
               <p className="text-muted-foreground text-center">
                 ensure the best security
               </p>
-              <div>
+              <div className="flex justify-between">
                 <div className="flex items-center justify-center space-x-2">
                   <Button
                     variant="outline"
