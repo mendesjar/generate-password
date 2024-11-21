@@ -19,7 +19,7 @@ let DEFAULT_INITIAL_VALUE = 5;
 
 function App() {
   const [password, setPassword] = useState<string>(
-    faker.string.alphanumeric(DEFAULT_INITIAL_VALUE)
+    faker.string.sample(DEFAULT_INITIAL_VALUE)
   );
   const [passwordLength, setPasswordLength] = useState(DEFAULT_INITIAL_VALUE);
   const [score, setScore] = useState<string>("");
@@ -117,7 +117,11 @@ function App() {
                       checked={includeSymbols}
                       onCheckedChange={(checked) => {
                         setIncludeSymbols(checked);
-                        changePasswordCaracter(passwordLength, checked);
+                        changePasswordCaracter(
+                          passwordLength,
+                          includeNumbers,
+                          checked
+                        );
                       }}
                     />
                     <Label htmlFor="include-symbols">Symbols</Label>
