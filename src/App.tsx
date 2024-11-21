@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Copy, Minus, Plus } from "lucide-react";
+import { Copy, Minus, Plus, RefreshCcw } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { faker } from "@faker-js/faker";
 import { Input } from "./components/ui/input";
@@ -78,11 +78,27 @@ function App() {
                 />
               </div>
               <div className="flex flex-wrap sm:flex-nowrap w-[calc(100%-2rem)] sm:w-full items-center space-y-2 sm:space-x-2 sm:space-y-0">
-                <Input
-                  className="pointer-events-none border-2 border-slate-700 border-opacity-15"
-                  type="text"
-                  value={password}
-                />
+                <div className="relative w-full">
+                  <Input
+                    className="pointer-events-none border-2 border-slate-700 border-opacity-15"
+                    type="text"
+                    value={password}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                    onClick={() =>
+                      changePasswordCaracter(
+                        passwordLength,
+                        includeNumbers,
+                        includeSymbols
+                      )
+                    }
+                  >
+                    <span className="text-gray-500 scale-75">
+                      <RefreshCcw />
+                    </span>
+                  </div>
+                </div>
                 <div
                   className={`w-full h-1 sm:w-1 sm:h-full ${score} rounded-full`}
                 />
