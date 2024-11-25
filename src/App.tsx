@@ -14,6 +14,7 @@ import { Slider } from "./components/ui/slider";
 import { Switch } from "./components/ui/switch";
 import { Label } from "./components/ui/label";
 import gm from "/gm.svg";
+import { toast } from "sonner";
 
 let DEFAULT_INITIAL_VALUE = 5;
 
@@ -98,8 +99,8 @@ function App() {
                       )
                     }
                   >
-                    <span className="text-gray-500 scale-75">
-                      <RefreshCcw />
+                    <span className="text-gray-500 scale-75 transition-transform origin-center hover:-rotate-12">
+                      <RefreshCcw className="stroke-[3]" />
                     </span>
                   </div>
                 </div>
@@ -108,7 +109,13 @@ function App() {
                 />
                 <Button
                   className="w-full sm:w-auto"
-                  onClick={() => navigator.clipboard.writeText(password)}
+                  onClick={() => {
+                    toast.success("Copied password", {
+                      duration: 1500,
+                      description: "Password copied to clipboard",
+                    });
+                    navigator.clipboard.writeText(password);
+                  }}
                 >
                   <Copy className="stroke-[3]" />
                 </Button>
