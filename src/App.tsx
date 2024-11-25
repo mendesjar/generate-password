@@ -55,7 +55,14 @@ function App() {
     symbols = includeSymbols
   ) {
     const string = passwordCaracter(length, numbers, symbols);
-    setPassword(string);
+    setTimeout(() => typewriter(string, 0, 50));
+  }
+
+  function typewriter(text: string, i = 0, time = 100) {
+    if (i < text.length) {
+      setPassword(text.slice(0, i + 1));
+      setTimeout(() => typewriter(text, i + 1), time);
+    }
   }
 
   return (
