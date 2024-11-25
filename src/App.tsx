@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Copy, Minus, Plus, RefreshCcw } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { faker } from "@faker-js/faker";
@@ -26,11 +26,6 @@ function App() {
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
   const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
 
-  useEffect(() => {
-    const score = evaluatePasswordStrength(password);
-    setScore(score);
-  }, [password]);
-
   function passwordCaracter(
     length = passwordLength,
     numbers = includeNumbers,
@@ -55,6 +50,8 @@ function App() {
     symbols = includeSymbols
   ) {
     const string = passwordCaracter(length, numbers, symbols);
+    const score = evaluatePasswordStrength(string);
+    setScore(score);
     setTimeout(() => typewriter(string, 0, 50));
   }
 
@@ -169,7 +166,9 @@ function App() {
                     <div className="text-7xl font-bold tracking-tighter">
                       <TooltipProvider>
                         <Tooltip>
-                          <TooltipTrigger className="bg-transparent">{passwordLength}</TooltipTrigger>
+                          <TooltipTrigger className="bg-transparent">
+                            {passwordLength}
+                          </TooltipTrigger>
                           <TooltipContent className="bg-slate-700 bg-opacity-10 ">
                             <Slider
                               defaultValue={[passwordLength]}
