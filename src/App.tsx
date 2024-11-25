@@ -169,7 +169,7 @@ function App() {
                     <div className="text-7xl font-bold tracking-tighter">
                       <TooltipProvider>
                         <Tooltip>
-                          <TooltipTrigger>{passwordLength}</TooltipTrigger>
+                          <TooltipTrigger className="bg-transparent">{passwordLength}</TooltipTrigger>
                           <TooltipContent className="bg-slate-700 bg-opacity-10 ">
                             <Slider
                               defaultValue={[passwordLength]}
