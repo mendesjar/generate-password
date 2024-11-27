@@ -55,6 +55,16 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        "floating-points": "floating-points infinite ease-in-out",
+      },
+      keyframes: {
+        "floating-points": {
+          "0%": { transform: "translateY(0)" },
+          "85%": { opacity: "0" },
+          "100%": { transform: "translateY(-55px)", opacity: "0" },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
