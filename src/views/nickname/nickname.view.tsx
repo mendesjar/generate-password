@@ -1,16 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Copy, RefreshCcw } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { faker } from "@faker-js/faker";
 import { Input } from "../../components/ui/input";
 import { toast } from "sonner";
 import { MainLayout } from "@/layout";
+import { generatorType } from "@/types/generator.type";
 
-function NicknameView() {
+function NicknameView({ typeGenerator }: { typeGenerator: generatorType }) {
   const [nickname, setNickname] = useState<string>(faker.string.sample());
 
+  useEffect(() => {
+    changeNicknameCaracter();
+  }, [typeGenerator]);
+
+  const nickModes: { [key: number]: string } = {
+    0: `${faker.animal.type()}_${faker.person.firstName()}`,
+    1: faker.internet.username(),
+  };
+
   function changeNicknameCaracter() {
-    setNickname(faker.string.sample());
+    const nick = generateNickname();
+    setTimeout(() => typewriter(nick, 0, 50));
+  }
+
+  function typewriter(text: string, i = 0, time = 100) {
+    if (i < text.length) {
+      setNickname(text.slice(0, i + 1));
+      setTimeout(() => typewriter(text, i + 1), time);
+    }
+  }
+
+  function generateNickname() {
+    const randomNumber: number = Math.floor(
+      Math.random() * Object.keys(nickModes).length
+    );
+    const nickname = nickModes[randomNumber];
+    return nickname;
   }
 
   return (

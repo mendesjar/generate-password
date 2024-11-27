@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ALargeSmall, ChevronRight, Repeat1 } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { NicknameView, PasswordView } from "./views";
+import { generatorType } from "./types/generator.type";
 
 const points = [
   "left-[10%] opacity-100",
@@ -16,14 +17,16 @@ const points = [
   "left-[65%] opacity-100",
 ];
 
-type generatorType = "password" | "nickname";
-
 function App() {
   const [typeGenerator, setTypeGenerator] = useState<generatorType>("password");
 
   return (
     <>
-      {typeGenerator === "password" ? <PasswordView /> : <NicknameView />}
+      {typeGenerator === "password" ? (
+        <PasswordView typeGenerator={typeGenerator} />
+      ) : (
+        <NicknameView typeGenerator={typeGenerator} />
+      )}
       <Button
         className="group z-50 hidden md:flex fixed m-auto top-0 bottom-0 left-14 rounded-full transition-all hover:pl-9 hover:bg-ben hover:ring-2 ring-violet-500"
         onClick={() => {

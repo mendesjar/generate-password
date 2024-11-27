@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Copy, Minus, Plus, RefreshCcw } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { faker } from "@faker-js/faker";
@@ -15,10 +15,11 @@ import { Switch } from "../../components/ui/switch";
 import { Label } from "../../components/ui/label";
 import { toast } from "sonner";
 import { MainLayout } from "@/layout";
+import { generatorType } from "@/types/generator.type";
 
-let DEFAULT_INITIAL_VALUE = 5;
+const DEFAULT_INITIAL_VALUE = 5;
 
-function PasswordView() {
+function PasswordView({ typeGenerator }: { typeGenerator: generatorType }) {
   const [password, setPassword] = useState<string>(
     faker.string.sample(DEFAULT_INITIAL_VALUE)
   );
@@ -26,6 +27,13 @@ function PasswordView() {
   const [score, setScore] = useState<string>("");
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
   const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIncludeNumbers(true);
+    setIncludeSymbols(true);
+    setPasswordLength(DEFAULT_INITIAL_VALUE);
+    changePasswordCaracter(DEFAULT_INITIAL_VALUE, true, true);
+  }, [typeGenerator]);
 
   function passwordCaracter(
     length = passwordLength,
